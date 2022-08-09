@@ -1,0 +1,71 @@
+---
+title: "R Data Types"
+format: html
+editor: visual
+---
+
+# Part 1 - Vectors, List & Data Frames
+
+```{r}
+library(tidyverse)
+
+# df %>% filter(speices = "dog") data.frame and then use this filter does the species column match dog
+```
+
+#### **Vectors, lists & data frames**
+
+```{r}
+
+#creating a vector
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+#checking following vectors
+class(vec_1)
+typeof(vec_1)
+
+#find element and storing the value
+vec_1_e3 <- vec_1[3]
+vec_1_e1 <- vec_1[1]
+vec_1_e5to7 <- vec_1[5:7]
+
+# reassigning vector as character from numeric
+vec_1_char <- as.character(vec_1)
+vec_1_char
+# output is all in quotations
+
+```
+
+2.  Creating Vector 2
+
+```{r}
+
+# storing a vector using names
+
+vec_2 <- c(town = "Santa Barbara", location = "Rincon", swell = "south")
+vec_2
+class(vec_2)
+# length of vec_2 is 3
+
+vec_2_e2 <- vec_2["location"]
+vec_2_e2
+```
+
+3.  Creating a Data Frame in R, index
+
+```{r}
+
+df_1 <- data_frame(region = c("A", "B", "C", "D"),
+                   species = c("otter", "great white", "sea lion", "gray whale"),
+                   count = c(12, 2, 36, 9))
+
+df_1
+
+class(df_1)
+
+class(df_1$species) 
+# returning the class of the species column by using name and $
+
+max_count <- max(df_1$count)
+#finding the max of the column count
+
+```
