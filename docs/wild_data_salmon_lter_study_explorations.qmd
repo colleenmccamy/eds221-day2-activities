@@ -1,0 +1,83 @@
+---
+title: "Wild Data Explorations"
+format: html
+editor: visual
+execute: 
+  warning: false
+  messages: false
+---
+
+```{r}
+
+library(tidyverse)
+library(here)
+library(janitor)
+
+```
+
+Reading the CSV and some fun data wrangling
+
+```{r}
+
+# reading csv using here
+
+read_csv(here::here("data", "AS00601.csv"))
+# reading the csv and checking out the aspects
+
+mack_verts <- read_csv(here::here("data", "AS00601.csv"))
+  
+# reading and saving the csv as a data item
+
+mack_verts <- janitor::clean_names(mack_verts)
+#cleaning column names
+
+```
+
+Exploring the data
+
+```{r}
+
+mc_wt_5 <- mack_verts$weight[5]
+mc_wt_5
+
+mc_length_8_20 <- mack_verts$length1[8:20]
+mc_length_8_20
+
+mc_dates <- c(mack_verts$sampledate)
+mc_dates
+```
+
+Making a subset with specific items
+
+```{r}
+
+mc_salamanders <- mack_verts %>% filter(species == "DITE")
+  
+```
+
+Creating a Scatterplot
+
+```{r}
+
+ggplot(data = mc_salamanders, aes(x = length1, y = weight))+geom_point(color = "pink", alpha = 0.5) + labs(title = "Length and Width of Salamanders", subtitle = "Exploring salamander size", caption = "understanding vertibrate size in different substrates", x = "Snout Length (mm)", y = "Weight (g)")
+
+ggsave(here::here("figs", "salamanders_plot.png"))
+```
+
+MC Trout Plotting
+
+```{r}
+
+mc_trout <- mack_verts %>% filter(species == "ONCL")
+
+ggplot(data = mc_trout, aes(x = length1, y = weight))+geom_point(aes(color = reach), alpha = 0.5) + labs(title = "Length and Width of Salamanders", subtitle = "Exploring salamander size", caption = "understanding vertibrate size in different substrates", x = "Snout Length (mm)", y = "Weight (g)") + facet_wrap(~reach)
+
+```
+
+Exporting
+
+```{r}
+
+ggsave(here::here("figs", "cutthroat_plot.png"))
+
+```
